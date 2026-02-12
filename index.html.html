@@ -1,0 +1,166 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>For My Favorite Person 
+ 
+ 
+</title> 
+    <style> 
+        body { 
+            background-color: #fff0f3; 
+            margin: 0; 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Arial', sans-serif; 
+            overflow: hidden; 
+        } 
+ 
+        .card { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 30px; 
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3); 
+            text-align: center; 
+            max-width: 350px; 
+            width: 90%; 
+            border: 4px solid #ffccd5; 
+        } 
+ 
+        .emoji-display { 
+            font-size: 80px; 
+            margin-bottom: 20px; 
+        } 
+ 
+        h1 { 
+            color: #ff4d6d; 
+            font-size: 1.8rem; 
+            margin-bottom: 30px; 
+        } 
+ 
+        .btn-container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 20px; 
+            height: 60px; 
+        } 
+ 
+        button { 
+            padding: 15px 30px; 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            border: none; 
+            cursor: pointer; 
+            transition: transform 0.2s; 
+        } 
+ 
+        #yesBtn { 
+            background-color: #ff758f; 
+            color: white; 
+            box-shadow: 0 4px 15px rgba(255, 117, 143, 0.4); 
+        } 
+ 
+        #noBtn { 
+            background-color: #f8f9fa; 
+            color: #ff4d6d; 
+            border: 2px solid #ffccd5; 
+            position: relative; /* Starts relative, jumps to fixed */ 
+            z-index: 999; 
+        } 
+ 
+        .floating-heart { 
+            position: fixed; 
+            font-size: 24px; 
+            user-select: none; 
+            z-index: -1; 
+            animation: float 4s linear forwards; 
+        } 
+ 
+        @keyframes float { 
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; } 
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; } 
+        } 
+    </style> 
+</head> 
+<body> 
+ 
+    <div class="card" id="valentineCard"> 
+        <div class="emoji-display" id="emoji">
+🐱
+</div> 
+        <h1 id="text">Will you be my Valentine? 
+ 
+ 
+</h1> 
+        <div class="btn-container"> 
+            <button id="yesBtn">YES!</button> 
+            <button id="noBtn">No</button> 
+        </div> 
+    </div> 
+ 
+    <script> 
+        const noBtn = document.getElementById('noBtn'); 
+        const yesBtn = document.getElementById('yesBtn'); 
+        const emoji = document.getElementById('emoji'); 
+        const text = document.getElementById('text'); 
+        const card = document.getElementById('valentineCard'); 
+ 
+        // This function moves the button to a random spot 
+        function moveNoButton() { 
+            // Get random coordinates 
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth); 
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight); 
+             
+            // Make it fixed so it can fly anywhere on the screen 
+            noBtn.style.position = 'fixed'; 
+            noBtn.style.left = x + 'px'; 
+            noBtn.style.top = y + 'px'; 
+        } 
+ 
+        // Trigger move on both hover (desktop) and tap (mobile) 
+        noBtn.addEventListener('mouseover', moveNoButton); 
+        noBtn.addEventListener('touchstart', (e) => { 
+            e.preventDefault(); // Prevents clicking 
+            moveNoButton(); 
+        }); 
+ 
+        // When she finally clicks YES 
+        yesBtn.addEventListener('click', () => { 
+            emoji.innerHTML = "
+💖
+"; 
+            text.innerHTML = "Yay! Best day ever!<br>I love you! 
+ 
+ 
+"; 
+            // Hide the No button just in case 
+            noBtn.style.display = 'none'; 
+            // Start the heart shower 
+            setInterval(createHeart, 200); 
+        }); 
+ 
+        function createHeart() { 
+            const heart = document.createElement('div'); 
+            heart.classList.add('floating-heart'); 
+            heart.innerHTML = ['
+❤
+', '
+💖
+', '
+💝
+', '
+💕
+'][Math.floor(Math.random() * 4)]; 
+            heart.style.left = Math.random() * 100 + 'vw'; 
+            heart.style.top = '100vh'; 
+            document.body.appendChild(heart); 
+            setTimeout(() => heart.remove(), 4000); 
+        } 
+    </script> 
+</body> 
+</html>
